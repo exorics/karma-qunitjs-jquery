@@ -21,6 +21,7 @@
 
             //获取src目录下的文件路径作为seajs模块的key
             if (/\/src\//.test(file)) {
+                console.log(file);
                 var name = file.match(/\/src\/([^.]+)\.js/)[1];
                 alias[name] = file;
             }

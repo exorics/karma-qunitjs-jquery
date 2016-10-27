@@ -6,7 +6,7 @@ QUnit.module("nuber-input cpn test unit", {
 
     }
 });
-seajs.use(['plugin/numberinput/numberinput'], function() {
+seajs.use(['plugin/numberinput/numberinput','plugin/typed'], function() {
 
 
     QUnit.test('setValue ', function(assert) {
@@ -25,27 +25,36 @@ seajs.use(['plugin/numberinput/numberinput'], function() {
 
         // var done = assert.async();
 
+        $('#inputField').numberInput("setValue", "")
         stop();
         $('#inputField').trigger("focus");
 
-        setTimeout(function() {
-            assert.equal(document.activeElement, $('#inputField:first')[0], "Input was focused");
-            start();
-        },500);
+        // setTimeout(function() {
+        //     assert.equal(document.activeElement, $('#inputField:first')[0], "Input was focused");
+        //     start();
+        // },500);
 
         // $('input:first').val('1');
-        stop();
+        console.log($('input'));
+        // stop();
 
         // $('#inputField').on('change', function() {
         //         console.log(arguments);
         //     })
-        var e = $.Event("keypress", { keyCode: 49 });
-        $('input:first').trigger(e);
+        // var e = $.Event("keypress", { keyCode: 49 });
+        // $('input:first').trigger(e);
 
+        $('input').typed({
+            strings: ["1"],
+            typeSpeed: 0
+        });
         setTimeout(function() {
-            assert.equal(document.activeElement, $('#inputField:first')[0], "Input was focused");
+            $('input').blur();
+            console.log($('#inputField').val());
+            assert.equal($('#inputField').val(),"1.00");
             start();
-        },500);
+            $('#fixtures').remove();
+        },1500);
 
         // stop();
         // $('#inputField').trigger("blur");
@@ -56,7 +65,7 @@ seajs.use(['plugin/numberinput/numberinput'], function() {
 
         // console.log($('#inputField').val());
         // assert.equal($('#inputField').val(),"1.00");
-        $('#fixtures').remove();
+        
 
     });
 
